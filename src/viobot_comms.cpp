@@ -41,6 +41,7 @@ int main(int argc, char **argv)
         http::Request algorithmEnableRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/enable/"+algo_type_num};
         http::Request algorithmRebootRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/reboot/"+algo_type_num};
         http::Request algorithmResetRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/reset/"+algo_type_num};
+        http::Request getCamParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/lens?Camera=1"};
 
         if(argc < 2)
         {
@@ -66,15 +67,6 @@ int main(int argc, char **argv)
         }
         else if(!strcmp(argv[1], "init"))
         {
-            // request to enable all sensors
-            // auto r1 = configSmartRequest.send("PUT", configSmartBody,{
-            //     {"Content-Type", "application/json"}
-            // });
-            // printResponse(r1);
-
-            // sleep for 100ms
-            // usleep(100000);
-
             // request to enable vio algorithm
             auto r2 = algorithmEnableRequest.send("PUT", emptyBody,{
                 {"Content-Type", "application/json"}
@@ -83,8 +75,26 @@ int main(int argc, char **argv)
         }
         else if(!strcmp(argv[1], "network"))
         {
-            // request to enable all sensors
+
             auto r1 = configSmartRequest.send("PUT", configNetworkBody,{
+                {"Content-Type", "application/json"}
+            });
+            printResponse(r1);
+        }
+        else if(!strcmp(argv[1], "camparam"))
+        {
+            // request Camera=1:左目可见光, Camera=2:右目可见光, Camera=3:TOF
+            http::Request getCamParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/lens?Camera=" + argv[2]};
+            auto r1 = getCamParamRequest.send("GET", emptyBody,{
+                {"Content-Type", "application/json"}
+            });
+            printResponse(r1);
+        }
+        else if(!strcmp(argv[1], "imuinter"))
+        {
+            // request
+            http::Request getImuParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/imuInter"};
+            auto r1 = getImuParamRequest.send("GET", emptyBody,{
                 {"Content-Type", "application/json"}
             });
             printResponse(r1);

@@ -99,7 +99,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Axes
-      Topic: /zc_stereo2/odometry
+      Topic: /pr_loop/odometry_rect
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -151,9 +151,9 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.019999999552965164
       Style: Flat Squares
-      Topic: /zc_stereo2/keyframe_points
+      Topic: /pr_loop/point_cloud_loop_rect
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -186,7 +186,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.7359962463378906
+      Distance: 7.441507339477539
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -194,17 +194,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.2560166120529175
+        Y: 1.1473106145858765
+        Z: 0.8210116028785706
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.19039784371852875
+      Pitch: 0.5753974318504333
       Target Frame: <Fixed Frame>
-      Yaw: 4.450409412384033
+      Yaw: 4.455407619476318
     Saved: ~
 Window Geometry:
   Displays:
