@@ -15,17 +15,20 @@ int main(int argc, char **argv)
     bool reboot = false;
     try
     {
-        std::string viobotIP = "192.168.1.23";
+        std::string viobotIP = "192.168.1.100";
         std::string viobotPort = "8000";
+        std::string algo_type_num = "2"; // 1. stereo1, 2. stereo2, 3. mono
+
         // you can pass http::InternetProtocol::V6 to Request to make an IPv6 request
         http::Request configSmartRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/smart"};
-        const std::string configSmartBody = "{\"gray_image_enable\": 1, "
+        // gray_image_enable: 0：不启用流获取灰度图, 1：启用流获取左目灰度图（单目, 2：启用流获取右目灰度图, 3：启用流获取双目灰度图
+        const std::string configSmartBody = "{\"gray_image_enable\": 3, "
                                             "\"imu_enable\": 1, "
                                             "\"tof_enable\": 1, "
                                             "\"tof_deep_image_enable\": 1, "
                                             "\"tof_amp_image_enable\": 1}";
 
-        const std::string configNetworkBody = "{\"ipaddr\": \"192.168.1.23\", "
+        const std::string configNetworkBody = "{\"ipaddr\": \"192.168.1.100\", "
                                               "\"submask\": \"192.168.0.1.0\", "
                                               "\"gateway\": \"192.168.1.1\", "
                                               "\"macaddr\": \"FF:FF:FF:FF:FF:FF\", "
@@ -33,11 +36,11 @@ int main(int argc, char **argv)
                                               "\"heartbeatPort\":6789, "
                                               "\"udpPort\":10000}";
 
-        http::Request algorithmEnableRequest{"http://" + viobotIP + ":" + viobotPort + "/Smart/algorithmEnable"};
         const std::string emptyBody = "{}";
-        
-        http::Request algorithmRebootRequest{"http://" + viobotIP + ":" + viobotPort + "/Smart/algorithmReboot"};
-        http::Request algorithmResetRequest{"http://" + viobotIP + ":" + viobotPort + "/Smart/algorithmReset"};
+
+        http::Request algorithmEnableRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/enable/"+algo_type_num};
+        http::Request algorithmRebootRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/reboot/"+algo_type_num};
+        http::Request algorithmResetRequest{"http://" + viobotIP + ":" + viobotPort + "/Algorithm/reset/"+algo_type_num};
 
         if(argc < 2)
         {
