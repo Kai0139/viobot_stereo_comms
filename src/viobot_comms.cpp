@@ -84,7 +84,8 @@ int main(int argc, char **argv)
         else if(!strcmp(argv[1], "camparam"))
         {
             // request Camera=1:左目可见光, Camera=2:右目可见光, Camera=3:TOF
-            http::Request getCamParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/lens?Camera=" + argv[2]};
+            // http::Request getCamParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/lens?Camera=" + argv[2]};
+            http::Request getCamParamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/lens?Camera=3"};
             auto r1 = getCamParamRequest.send("GET", emptyBody,{
                 {"Content-Type", "application/json"}
             });
@@ -98,6 +99,16 @@ int main(int argc, char **argv)
                 {"Content-Type", "application/json"}
             });
             printResponse(r1);
+        }
+        else if(!strcmp(argv[1], "cam2imu"))
+        {
+            // request
+            http::Request getImuCamRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/cam2imu"};
+            auto r1 = getImuCamRequest.send("GET", emptyBody,{
+                {"Content-Type", "application/json"}
+            });
+            std::cout << std::string{r1.body.begin(), r1.body.end()} << '\n'; // print the result
+            // printResponse(r1);
         }
     }
     catch (const std::exception& e)

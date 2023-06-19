@@ -1,0 +1,84 @@
+imu_rate: 200 #imu频率 Hz
+image_rate: 15 #image频率 Hz
+
+imu_frame_id: "imu" 
+syn_trigger_mode: 3 #同步触发模式 0：不同步触发；1：imu与左目同步触发 2：imu与右目同步触发；3：imu与双目 4：imu与tof同步触发 5.imu与双目以及tof一并同步触发
+
+loop_flag: true
+
+#根据左目的画面亮度控制左目相机参数
+exposure_left: 3000 #初始曝光时间
+aec_left: true #自动曝光开关 
+agc_left: true #自动增益开关
+normal_analog_gain_level_left: 1 #常规模拟增益等级
+normal_light_left: 80 #常规亮度 室内80 室外120
+
+#根据右目的画面亮度控制右目相机参数
+exposure_right: 3000 #初始曝光时间
+aec_right: true #自动曝光开关 
+agc_right: true #自动增益开关
+normal_analog_gain_level_right: 1 #常规模拟增益等级
+normal_light_right: 80 #常规亮度 室内80 室外120
+
+#共同控制，根据左目的亮度共同控制相机
+both_control: true #共同控制开关
+light_cali: false #光度控制
+
+rtsp_encode_rate: 1152000 #视频流码率
+
+net_config_set: true #网络设置
+led: false #补光灯开关
+
+undistort: true
+
+
+camera:
+  left:
+    fx: 396.9654435015058311 # projection_parameters
+    fy: 396.9713950173774606
+    cx: 316.7033190151593658
+    cy: 229.8110117147282665
+    k1: -0.1520012039357869 # distortion_parameters
+    k2: 0.0480209271272850
+    p1: 0.0003133015453091
+    p2: -0.0004357968905394
+    k3: -0.0151255676679353
+  right:
+    fx: 397.2040132398640253 # projection_parameters
+    fy: 397.1348419214193655
+    cx: 329.3784752309014721
+    cy: 252.5426131128226928
+    k1: -0.1522670864401826 # distortion_parameters
+    k2: 0.0484658052127518
+    p1: -0.0000496475521137
+    p2: 0.0008224891012062
+    k3: -0.0151531695956924
+extrinsic:
+  # Rotation from right camera frame to left camera frame
+  Rotation:
+    rows: 3
+    cols: 3
+    dt: d
+    data: [0.9997919452218481,-0.0173215898708111,-0.0107716662527489,
+           0.0174015417143923,0.9998213928009958,0.0073735231361410,
+           0.0106420212119438,-0.0075594326390514,0.9999147975516215]
+  Translation:
+    rows: 3
+    cols: 1
+    dt: d
+    data: [-0.0453361294063033, -0.0005100991271272, -0.0002973543957342]
+
+#imu parameters       The more accurate parameters you provide, the better performance
+gyr_n: 0.0028572 # gyroscope measurement noise standard deviation.
+gyr_w: 0.0002234 # gyroscope bias random work noise standard deviation.
+acc_n: 0.0155084 # accelerometer measurement noise standard deviation.
+acc_w: 0.0005794 # accelerometer bias random work noise standard deviation.
+
+body_T_cam0:
+   rows: 4
+   cols: 4
+   dt: d
+   data: [ 9.9972703732590917e-01, 2.8502401251990334e-03,-2.3188940700017112e-02, 2.5827301559664544e-02,
+          -2.1869384873864635e-03, 9.9958913133745164e-01,2.8579464867124697e-02, 6.8647454257590834e-02,
+           2.3260871428486780e-02, -2.8520950953071892e-02,9.9932251411499773e-01, 5.8203398350297177e-02,
+           0., 0., 0., 1. ]
