@@ -22,11 +22,11 @@ int main(int argc, char **argv)
         // you can pass http::InternetProtocol::V6 to Request to make an IPv6 request
         http::Request configSmartRequest{"http://" + viobotIP + ":" + viobotPort + "/Config/smart"};
         // gray_image_enable: 0：不启用流获取灰度图, 1：启用流获取左目灰度图（单目, 2：启用流获取右目灰度图, 3：启用流获取双目灰度图
-        const std::string configSmartBody = "{\"gray_image_enable\": 3, "
-                                            "\"imu_enable\": 1, "
-                                            "\"tof_enable\": 1, "
-                                            "\"tof_deep_image_enable\": 1, "
-                                            "\"tof_amp_image_enable\": 1}";
+        const std::string configSmartBody = "{\"gray_image_enable\": 0, "
+                                            "\"imu_enable\": 0, "
+                                            "\"tof_enable\": 0, "
+                                            "\"tof_deep_image_enable\": 0, "
+                                            "\"tof_amp_image_enable\": 0}";
 
         const std::string configNetworkBody = "{\"ipaddr\": \"192.168.1.100\", "
                                               "\"submask\": \"192.168.0.1.0\", "
@@ -67,13 +67,13 @@ int main(int argc, char **argv)
         else if(!strcmp(argv[1], "init"))
         {
             // request to enable all sensors
-            auto r1 = configSmartRequest.send("PUT", configSmartBody,{
-                {"Content-Type", "application/json"}
-            });
-            printResponse(r1);
+            // auto r1 = configSmartRequest.send("PUT", configSmartBody,{
+            //     {"Content-Type", "application/json"}
+            // });
+            // printResponse(r1);
 
             // sleep for 100ms
-            usleep(100000);
+            // usleep(100000);
 
             // request to enable vio algorithm
             auto r2 = algorithmEnableRequest.send("PUT", emptyBody,{
